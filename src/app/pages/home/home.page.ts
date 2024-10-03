@@ -23,4 +23,8 @@ export class HomePage implements OnInit {
     })
   }
 
+  verComidas(tipo_categoria:string){
+    console.log(tipo_categoria);
+  
+  }
 }

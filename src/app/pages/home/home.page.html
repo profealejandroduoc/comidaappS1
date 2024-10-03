@@ -7,13 +7,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" color="secondary">
  <ion-text color="primary" class="ion-text-center">
   <h1>Categorias</h1>
  </ion-text>
- <ion-list>
-  <ion-item *ngFor="let item of lista" >
-    <ion-label>Awesome Label</ion-label>
-  </ion-item>
- </ion-list>
+
+ <ion-card *ngFor="let item of lista" (click)="verComidas(item.strCategory)">
+  <ion-card-header>
+    <ion-card-title color="tertiary"><h1>{{item.strCategory}}</h1></ion-card-title>
+ 
+  </ion-card-header>
+  <img alt="Imagen Categoria" src="{{item.strCategoryThumb}}" />
+  <ion-card-content>
+    <ion-card-subtitle>ID: {{item.idCategory}}</ion-card-subtitle>
+    {{item.strCategoryDescription}}
+  </ion-card-content>
+</ion-card>
 </ion-content>
