@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Instrucciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-text color="secondary">
+    <h1>{{nombre_comida}}</h1>
+  </ion-text>
+  <ion-card *ngFor="let item of lista_instruc" >
+    <img alt="Imagen" src="{{item.strMealThumb}}" />
+    <ion-card-header>
+      <ion-toolbar>
+        <ion-text color="secondary"><h1>{{item.strMeal}}</h1></ion-text>
+        <ion-icon name="ellipsis-vertical" slot="end" size="large"  color="primary"></ion-icon>
+      </ion-toolbar>
+      
+      
+      <ion-card-subtitle>ID: {{item.idMeal}}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{item.strInstructions}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

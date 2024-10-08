@@ -14,11 +14,11 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let item of lista_comidas" detail="true">
+        <ion-item *ngFor="let item of lista_comidas" detail="true" (click)="verInstrucciones(item.idMeal)">
           <ion-thumbnail slot="start">
             <img alt="fotito" src="{{item.strMealThumb}}" />
           </ion-thumbnail>
-          <ion-label color="secondary">{{item.strMeal}} - {{item.idMeal}}</ion-label>
+          <ion-label color="secondary">{{item.strMeal}} </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
