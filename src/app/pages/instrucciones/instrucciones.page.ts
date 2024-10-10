@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Icon } from 'ionicons/dist/types/components/icon/icon';
 import { Instruccion } from 'src/app/interfaces/icomidas';
 import { DatosService } from 'src/app/services/datos.service';
+import { LocaldbService } from 'src/app/services/localdb.service';
 
 @Component({
   selector: 'app-instrucciones',
@@ -15,12 +16,13 @@ export class InstruccionesPage implements OnInit {
   id_receta:string='';
   recta_obj:any;
   lista_instruc:Instruccion[]=[]
+  iconofav:string="heart-outline"
   public actionSheetButtons = [
     {
       text: 'Agregar a favoritos',
-      icon:"heart-outline",
+      icon:this.iconofav,
       handler: () => {
-        
+        this.agregarFavorito()
       },
       data: {
         action: 'delete',
@@ -47,7 +49,7 @@ export class InstruccionesPage implements OnInit {
   ];
   
 
-  constructor(private router:Router, private srv:DatosService) { }
+  constructor(private router:Router, private srv:DatosService, private db:LocaldbService) { }
 
   ngOnInit() {
 
@@ -63,8 +65,13 @@ export class InstruccionesPage implements OnInit {
     }
   }
 
-  agregarFavorito(id:string){
+  agregarFavorito(){
+    this.db.set(this.id_receta,this.recta_obj);
+    this.iconofav="heart"
+  }
 
+  esFavorito(){
+    
   }
 
 }
