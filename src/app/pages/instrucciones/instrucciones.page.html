@@ -17,7 +17,7 @@
   <ion-card *ngFor="let item of lista_instruc" >
     <img alt="Imagen" src="{{item.strMealThumb}}" />
     <ion-card-header>
-      <ion-action-sheet trigger="open-action-sheet" header="Actions" [buttons]="actionSheetButtons" mode="ios"></ion-action-sheet>
+      <ion-action-sheet trigger="open-action-sheet" header="Actions" [buttons]="actionSheetButtons" mode="ios" backdropDismiss="false"></ion-action-sheet>
       <ion-toolbar>
         <ion-text color="secondary"><h1>{{item.strMeal}}</h1></ion-text>
         <ion-icon id="open-action-sheet" name="ellipsis-vertical" slot="end" size="large"  color="primary"></ion-icon>

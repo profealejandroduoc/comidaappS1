@@ -11,12 +11,17 @@ import { DatosService } from 'src/app/services/datos.service';
 })
 export class InstruccionesPage implements OnInit {
 
-  nombre_comida:string=''
+  nombre_comida:string='';
+  id_receta:string='';
+  recta_obj:any;
   lista_instruc:Instruccion[]=[]
   public actionSheetButtons = [
     {
       text: 'Agregar a favoritos',
       icon:"heart-outline",
+      handler: () => {
+        
+      },
       data: {
         action: 'delete',
       },
@@ -26,7 +31,11 @@ export class InstruccionesPage implements OnInit {
       icon:"share-social",
       data: {
         action: 'share',
+        
+
       },
+      
+      
     },
     {
       text: 'Cancel',
@@ -48,13 +57,14 @@ export class InstruccionesPage implements OnInit {
       this.srv.getInstrucciones(xtr['id']).subscribe(datos=>{
         this.lista_instruc.push(...datos.meals);
         console.log(this.lista_instruc);
-      })
-
-     
-
+        this.id_receta=this.lista_instruc[0].idMeal;
+        this.recta_obj=this.lista_instruc[0];
+      });
     }
   }
 
+  agregarFavorito(id:string){
 
+  }
 
 }
