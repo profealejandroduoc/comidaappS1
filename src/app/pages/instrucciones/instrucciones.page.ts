@@ -4,6 +4,7 @@ import { Icon } from 'ionicons/dist/types/components/icon/icon';
 import { Instruccion } from 'src/app/interfaces/icomidas';
 import { DatosService } from 'src/app/services/datos.service';
 import { LocaldbService } from 'src/app/services/localdb.service';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-instrucciones',
@@ -12,66 +13,91 @@ import { LocaldbService } from 'src/app/services/localdb.service';
 })
 export class InstruccionesPage implements OnInit {
 
-  nombre_comida:string='';
-  id_receta:string='';
-  recta_obj:any;
+
+  //infav:boolean=false;
+
+
   lista_instruc:Instruccion[]=[]
-  iconofav:string="heart-outline"
-  public actionSheetButtons = [
-    {
-      text: 'Agregar a favoritos',
-      icon:this.iconofav,
-      handler: () => {
-        this.agregarFavorito()
-      },
-      data: {
-        action: 'delete',
-      },
-    },
-    {
-      text: 'Compartir',
-      icon:"share-social",
-      data: {
-        action: 'share',
-        
-
-      },
-      
-      
-    },
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      data: {
-        action: 'cancel',
-      },
-    },
-  ];
   
+  id_instrucciones:string='';
 
-  constructor(private router:Router, private srv:DatosService, private db:LocaldbService) { }
+  estadofav=false;
+
+id_comida:string=''
+
+
+  constructor(private router:Router, private srv:DatosService, private db:LocaldbService,private actionSheetController: ActionSheetController) { }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones',
+      buttons: [
+        {
+          text: 'Favorito',
+          icon: this.getIcon(),
+          handler: () => {
+            console.log('Favorito clicked');
+            this.agregarFav();
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('Cancelar clicked');
+          }
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
 
   ngOnInit() {
-
+    console.clear();
+   
     let xtr=this.router.getCurrentNavigation()?.extras.state;
     if (xtr!==undefined)
     {
       this.srv.getInstrucciones(xtr['id']).subscribe(datos=>{
         this.lista_instruc.push(...datos.meals);
-        console.log(this.lista_instruc);
-        this.id_receta=this.lista_instruc[0].idMeal;
-        this.recta_obj=this.lista_instruc[0];
-      });
+        this.id_instrucciones=this.lista_instruc[0].idMeal;
+        this.id_comida=this.lista_instruc[0].idMeal;
+        this.buscarFav(this.id_comida);
+        });
     }
   }
 
-  agregarFavorito(){
-    this.db.set(this.id_receta,this.recta_obj);
-    this.iconofav="heart"
+  buscarFav(id:string) {
+    
+    let valor=this.db.get(id);
+    //Solo para mostrar en consola
+    valor.then(datos=>{
+     console.log(datos);
+     if(datos!==null){
+       this.estadofav=true;
+     }
+ 
+    })
+
+
   }
 
-  esFavorito(){
-    
+  getIcon(){
+    console.log("desde get icon");
+    //const tf=this.getData();
+    if(this.estadofav===true)
+    {
+    return 'heart';
+    }
+    else{
+      return 'heart-outline';
+    }
   }
+
+  agregarFav(){
+    this.db.set(this.id_comida,this.lista_instruc[0]);
+  }
+
 
 }

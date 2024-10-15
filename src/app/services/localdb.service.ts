@@ -22,5 +22,9 @@ export class LocaldbService {
     this._storage?.set(key, value);
   }
 
+  public async get(key: string) {
+    const valores= await this._storage?.get(key);
+    return valores;
+  }
 
   }
