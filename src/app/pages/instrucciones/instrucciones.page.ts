@@ -17,16 +17,16 @@ export class InstruccionesPage implements OnInit {
   //infav:boolean=false;
 
 
-  lista_instruc:Instruccion[]=[]
-  
-  id_instrucciones:string='';
+  lista_instruc: Instruccion[] = []
 
-  estadofav=false;
+  id_instrucciones: string = '';
 
-id_comida:string=''
+  estadofav = false;
+
+  id_comida: string = ''
 
 
-  constructor(private router:Router, private srv:DatosService, private db:LocaldbService,private actionSheetController: ActionSheetController) { }
+  constructor(private router: Router, private srv: DatosService, private db: LocaldbService, private actionSheetController: ActionSheetController) { }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
@@ -39,9 +39,9 @@ id_comida:string=''
             console.log('Favorito clicked');
             this.agregarFav();
           }
-        },{
-          text:'Compartir',
-          icon:'share-social',
+        }, {
+          text: 'Compartir',
+          icon: 'share-social',
           handler: () => {
             console.log('Cancelar clicked');
           }
@@ -61,60 +61,58 @@ id_comida:string=''
 
   ngOnInit() {
     console.clear();
-   
-    let xtr=this.router.getCurrentNavigation()?.extras.state;
-    if (xtr!==undefined)
-    {
-      this.srv.getInstrucciones(xtr['id']).subscribe(datos=>{
+
+    let xtr = this.router.getCurrentNavigation()?.extras.state;
+    if (xtr !== undefined) {
+      this.srv.getInstrucciones(xtr['id']).subscribe(datos => {
         this.lista_instruc.push(...datos.meals);
-        this.id_instrucciones=this.lista_instruc[0].idMeal;
-        this.id_comida=this.lista_instruc[0].idMeal;
+        this.id_instrucciones = this.lista_instruc[0].idMeal;
+        this.id_comida = this.lista_instruc[0].idMeal;
         this.buscarFav(this.id_comida);
-        });
+      });
     }
   }
 
-  buscarFav(id:string) {
+  buscarFav(id: string) {
     console.log('buscarfav');
-    let valor=this.db.get(id);
+    let valor = this.db.get(id);
     //Solo para mostrar en consola
-    valor.then(datos=>{
-     console.log(datos);
-     if(datos!==null){
-       this.estadofav=true;
-     }
-     else{
-      this.estadofav=false;
-     }
- 
+    valor.then(datos => {
+      console.log(datos);
+      if (datos !== null) {
+        this.estadofav = true;
+      }
+      else {
+        this.estadofav = false;
+      }
+
     })
 
 
   }
 
-  getIcon(){
+  getIcon() {
     console.log("desde get icon");
     //const tf=this.getData();
-    if(this.estadofav===true)
-    {
-    return 'heart';
+    if (this.estadofav === true) {
+      return 'heart';
     }
-    else{
+    else {
       return 'heart-outline';
     }
   }
 
-  agregarFav(){
-    if (this.estadofav===false){
-      this.db.set(this.id_comida,this.lista_instruc[0]);
-      this.estadofav=true;
+  agregarFav() {
+    if (this.estadofav === false) {
+      this.db.set(this.id_comida, this.lista_instruc[0]);
+      this.estadofav = true;
     }
-    else{
+    else {
       this.db.remover(this.lista_instruc[0].idMeal);
-      this.estadofav=false;
-      
+      this.estadofav = false;
+
     }
-   this.getIcon();
+    this.getIcon();
 
   }
 
