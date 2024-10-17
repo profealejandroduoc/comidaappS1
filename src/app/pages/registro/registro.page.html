@@ -1,13 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-icon slot="start" name="menu" size="large" class="ion-padding" color="light"></ion-icon>
+    <ion-title size="medium" color="light" >
+     ComidAPP
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-text color="secondary" class="ion-text-center">
+    <h1>Registrar Usuario</h1>
+  </ion-text>
+  <form #fregistro="ngForm" (ngSubmit)="registrar()">
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Usuario" required name="usuario" type="text" [(ngModel)]="user.username" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Contraseña" required name="password" type="text" [(ngModel)]="user.password" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Nombre" required name="text" type="text" [(ngModel)]="user.nombre" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Apellido" required name="text" type="text" [(ngModel)]="user.apellido" ></ion-input>
+    </ion-item>
+    <ion-button expand="full" color="tertiary" type="submit" [disabled]="fregistro.invalid" >
+      <ion-text color="light">
+        Crear Usuario
+      </ion-text>
+      
+    </ion-button>
+  </form>
+
+
+
 </ion-content>

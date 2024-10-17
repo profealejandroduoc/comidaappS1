@@ -39,6 +39,12 @@ id_comida:string=''
             console.log('Favorito clicked');
             this.agregarFav();
           }
+        },{
+          text:'Compartir',
+          icon:'share-social',
+          handler: () => {
+            console.log('Cancelar clicked');
+          }
         },
         {
           text: 'Cancelar',
