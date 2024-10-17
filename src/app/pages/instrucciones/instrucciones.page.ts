@@ -108,7 +108,7 @@ id_comida:string=''
       this.estadofav=false;
       
     }
-   this.getIcon()
+   this.getIcon();
 
   }
 
