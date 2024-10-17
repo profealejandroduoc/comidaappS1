@@ -27,4 +27,8 @@ export class LocaldbService {
     return valores;
   }
 
+  public async remover(key:string){
+    await this._storage?.remove(key);
+  }
+
   }

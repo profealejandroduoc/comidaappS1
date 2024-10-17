@@ -69,13 +69,16 @@ id_comida:string=''
   }
 
   buscarFav(id:string) {
-    
+    console.log('buscarfav');
     let valor=this.db.get(id);
     //Solo para mostrar en consola
     valor.then(datos=>{
      console.log(datos);
      if(datos!==null){
        this.estadofav=true;
+     }
+     else{
+      this.estadofav=false;
      }
  
     })
@@ -96,7 +99,17 @@ id_comida:string=''
   }
 
   agregarFav(){
-    this.db.set(this.id_comida,this.lista_instruc[0]);
+    if (this.estadofav===false){
+      this.db.set(this.id_comida,this.lista_instruc[0]);
+      this.estadofav=true;
+    }
+    else{
+      this.db.remover(this.lista_instruc[0].idMeal);
+      this.estadofav=false;
+      
+    }
+   this.getIcon()
+
   }
 
 
