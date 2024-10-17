@@ -1,0 +1,30 @@
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-icon slot="start" name="menu" size="large" class="ion-padding" color="light"></ion-icon>
+    <ion-title size="medium" color="light" >
+     ComidAPP
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-text color="secondary" class="ion-text-center">
+    <h1>Iniciar Sesión</h1>
+  </ion-text>
+  <form #formLogin="ngForm" (ngSubmit)="logear()">
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Usuario" required name="usuario" type="text" [(ngModel)]="user.username" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Contraseña" required name="password" type="text" [(ngModel)]="user.password" ></ion-input>
+    </ion-item>
+    <ion-button expand="full" color="tertiary" type="submit" [disabled]="formLogin.invalid" >
+      <ion-text color="light">
+        Iniciar Sesión
+      </ion-text>
+      
+    </ion-button>
+  </form>
+
+
+</ion-content>
