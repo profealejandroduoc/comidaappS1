@@ -5,7 +5,7 @@ import { Instruccion } from 'src/app/interfaces/icomidas';
 import { DatosService } from 'src/app/services/datos.service';
 import { LocaldbService } from 'src/app/services/localdb.service';
 import { ActionSheetController } from '@ionic/angular';
-import config from '../../../../capacitor.config';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-instrucciones',
@@ -61,8 +61,13 @@ export class InstruccionesPage implements OnInit {
     await actionSheet.present();
   }
 
-  compartir() {
-    
+  async compartir() {
+    await Share.share({
+      title: 'Mira esta receta!!!',
+      text: 'Descarga ComidaAPP para más recetas',
+      url: this.lista_instruc[0].strYoutube,
+      dialogTitle: 'Compartir esta receta',
+    });
   }
 
   ngOnInit() {
