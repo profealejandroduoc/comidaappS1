@@ -5,6 +5,7 @@ import { Instruccion } from 'src/app/interfaces/icomidas';
 import { DatosService } from 'src/app/services/datos.service';
 import { LocaldbService } from 'src/app/services/localdb.service';
 import { ActionSheetController } from '@ionic/angular';
+import config from '../../../../capacitor.config';
 
 @Component({
   selector: 'app-instrucciones',
@@ -43,7 +44,8 @@ export class InstruccionesPage implements OnInit {
           text: 'Compartir',
           icon: 'share-social',
           handler: () => {
-            console.log('Cancelar clicked');
+            console.log('Compartir clicked');
+            this.compartir();
           }
         },
         {
@@ -57,6 +59,10 @@ export class InstruccionesPage implements OnInit {
       ]
     });
     await actionSheet.present();
+  }
+
+  compartir() {
+    
   }
 
   ngOnInit() {
