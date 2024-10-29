@@ -1,26 +1,41 @@
-<ion-header >
+<ion-header>
   <ion-toolbar color="primary">
     <ion-icon slot="start" name="menu" size="large" class="ion-padding" color="light"></ion-icon>
-    <ion-title size="medium" color="light" >
-     ComidAPP
+    <ion-title size="medium" color="light">
+      ComidAPP
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
- <ion-text color="primary" class="ion-text-center">
-  <h1>Categorias</h1>
- </ion-text>
+  <ion-text color="primary" class="ion-text-center">
+    <h1>Categorias</h1>
+  </ion-text>
 
- <ion-card *ngFor="let item of lista" (click)="verComidas(item.strCategory)">
-  <ion-card-header>
-    <ion-card-title color="tertiary"><h1>{{item.strCategory}}</h1></ion-card-title>
- 
-  </ion-card-header>
-  <img alt="Imagen Categoria" src="{{item.strCategoryThumb}}" />
-  <ion-card-content>
-    <ion-card-subtitle>ID: {{item.idCategory}}</ion-card-subtitle>
-    {{item.strCategoryDescription}}
-  </ion-card-content>
-</ion-card>
+  <ion-list *ngIf="loaded">
+    <ion-card *ngFor="let item of lista" (click)="verComidas(item.strCategory)">
+      <ion-card-header>
+        <ion-card-title color="tertiary">
+          <h1>{{item.strCategory}}</h1>
+        </ion-card-title>
+
+      </ion-card-header>
+      <img alt="Imagen Categoria" src="{{item.strCategoryThumb}}" />
+      <ion-card-content>
+        <ion-card-subtitle>ID: {{item.idCategory}}</ion-card-subtitle>
+        {{item.strCategoryDescription}}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-list *ngIf="!loaded">
+    <ion-card *ngFor="let fake of [1,1,1,1]" class="ion-padding">
+      
+      <ion-skeleton-text animated style="width: 100px; height: 100px;" class="ion-text-center"></ion-skeleton-text>
+      <ion-card-content>
+        <ion-card-subtitle>ID:  <ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></ion-card-subtitle>
+        <ion-skeleton-text animated style="width: 10%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>
